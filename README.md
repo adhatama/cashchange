@@ -10,8 +10,8 @@ This apps is only available in IDR
     - You need to prepare money so you can give your customer a proper change
     - You input the cost of the pizza in this apps
     - The apps will tell you: 
-        - if 150.000 then prepare 10.000 [100, 50]
-        - if 200.000 then prepare 50.000 & 10.000 [100, 100]
+        - if 150.000 then prepare 10.000
+        - if 200.000 then prepare 50.000 & 10.000
         - So you need to bring a 10.000, a 20.000, and a 50.000 to prepare for every scenario your customer had
 - You are gojek driver
     - The customer order gofood from you that cost IDR 76.000
@@ -30,4 +30,4 @@ This apps is only available in IDR
         - If your customer pay 84.000 then give them change IDR 1.000
         - If 85.000 then give them change IDR 2.000
         - If 90.000 then give them change IDR 5.000 and 2.000
-        - If 100.000 then give them change IDR 100.000, 5.000, and 2.000
+        - If 100.000 then give them change IDR 10.000, 5.000, and 2.000
