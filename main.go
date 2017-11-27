@@ -25,7 +25,6 @@ func main() {
 	}
 
 	moneyBills := getIdr()
-	moneyBills = reverse(moneyBills)
 
 	fmt.Printf("Available money bills: %v\n", moneyBills)
 
@@ -47,7 +46,7 @@ func main() {
 func getIdr() (x []int) {
 	moneyBills := []int{500, 1000, 2000, 5000, 10000, 20000, 50000, 100000}
 
-	return moneyBills
+	return reverse(moneyBills)
 }
 
 func isPaymentChancesFound(result int, paymentChances []paymentChance) (found bool) {
