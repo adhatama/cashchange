@@ -5,6 +5,16 @@ import (
 	"log"
 )
 
+type paymentChance struct {
+	value  int
+	detail []int
+}
+
+type cashChange struct {
+	value  int
+	detail []int
+}
+
 func main() {
 	inputPrice := 0
 	_, err := fmt.Scanf("%d", &inputPrice)
@@ -21,37 +31,38 @@ func main() {
 
 	fmt.Println(moneyBills)
 
-	paymentChances := make(map[int][]int)
-	var tempResult []int
-	for i := 0; i < len(moneyBills)-1; {
-		sumTempResult := sum(tempResult)
+	paymentChances := []paymentChance{}
+	tempPChance := paymentChance{}
 
-		if sumTempResult == inputPrice {
+	for i := 0; i < len(moneyBills)-1; {
+		sumDetail := sum(tempPChance.detail)
+
+		if sumDetail == inputPrice {
 			break
 		}
 
-		if inputPrice > sumTempResult {
-			tempResult = append(tempResult, moneyBills[i])
-		} else if isPaymentChancesFound(sumTempResult, paymentChances) {
-			tempResult = tempResult[:len(tempResult)-1]
+		if inputPrice > sumDetail {
+			tempPChance.detail = append(tempPChance.detail, moneyBills[i])
+		} else if isPaymentChancesFound(sumDetail, paymentChances) {
+			tempPChance.detail = tempPChance.detail[:len(tempPChance.detail)-1]
 			i++
 		} else {
-			paymentChances[sumTempResult] = tempResult
-			tempResult = nil
+			tempPChance.value = sumDetail
+			paymentChances = append(paymentChances, tempPChance)
+			tempPChance = paymentChance{}
 			i = 0
 		}
 	}
 
 	fmt.Println("=== Payment Chances ===")
-	for key, val := range paymentChances {
-		fmt.Printf("%d => ", key)
-		fmt.Println(val)
+	for _, val := range paymentChances {
+		fmt.Printf("%d => %v\n", val.value, val.detail)
 	}
 
-	results := make(map[int][]int)
-	tempResult = nil
-	for key := range paymentChances {
-		remaining := key - inputPrice
+	cashChanges := []paymentChance{}
+	tempPChance = paymentChance{}
+	for _, pChance := range paymentChances {
+		remaining := pChance.value - inputPrice
 
 		for i := 0; i < len(moneyBills)-1; {
 			if remaining == 0 {
@@ -59,21 +70,21 @@ func main() {
 			}
 
 			if remaining >= moneyBills[i] {
-				tempResult = append(tempResult, moneyBills[i])
+				tempPChance.detail = append(tempPChance.detail, moneyBills[i])
 				remaining -= moneyBills[i]
 			} else {
 				i++
 			}
 		}
 
-		results[key] = tempResult
-		tempResult = nil
+		tempPChance.value = pChance.value
+		cashChanges = append(cashChanges, tempPChance)
+		tempPChance = paymentChance{}
 	}
 
 	fmt.Println("=== Cash Change Possibilites ===")
-	for key, val := range results {
-		fmt.Printf("%d => ", key)
-		fmt.Println(val)
+	for _, val := range cashChanges {
+		fmt.Printf("%d => %v\n", val.value, val.detail)
 	}
 }
 
@@ -83,9 +94,9 @@ func getIdr() (x []int) {
 	return moneyBills
 }
 
-func isPaymentChancesFound(result int, paymentChances map[int][]int) (found bool) {
-	for key := range paymentChances {
-		if key == result {
+func isPaymentChancesFound(result int, paymentChances []paymentChance) (found bool) {
+	for _, val := range paymentChances {
+		if val.value == result {
 			return true
 		}
 	}
