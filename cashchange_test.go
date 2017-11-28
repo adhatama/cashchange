@@ -1,4 +1,4 @@
-package main
+package cashchange
 
 import (
 	"reflect"
@@ -95,13 +95,13 @@ func TestCalculateCashChanges(t *testing.T) {
 	}
 }
 
-func isValidPaymentChances(paymentChances []paymentChance, testData map[int][]int) (valid bool) {
+func isValidPaymentChances(paymentChances []PaymentChance, testData map[int][]int) (valid bool) {
 	for key, val := range testData {
 		valid = false
 
 		for _, paymentChance := range paymentChances {
-			if paymentChance.value == key {
-				valid = reflect.DeepEqual(paymentChance.detail, val)
+			if paymentChance.Value == key {
+				valid = reflect.DeepEqual(paymentChance.Detail, val)
 				break
 			}
 		}
@@ -114,13 +114,13 @@ func isValidPaymentChances(paymentChances []paymentChance, testData map[int][]in
 	return true
 }
 
-func isValidCashChanges(cashChanges []cashChange, testData map[int][]int) (valid bool) {
+func isValidCashChanges(cashChanges []CashChange, testData map[int][]int) (valid bool) {
 	for key, val := range testData {
 		valid = false
 
 		for _, cashChange := range cashChanges {
-			if cashChange.value == key {
-				valid = reflect.DeepEqual(cashChange.detail, val)
+			if cashChange.Value == key {
+				valid = reflect.DeepEqual(cashChange.Detail, val)
 				break
 			}
 		}
