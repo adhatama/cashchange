@@ -4,6 +4,51 @@ Cash Change is here to help you prepare your money for change.
 
 This apps is only available in IDR
 
+## Installation
+`go get github.com/adhatama/cashchange`
+
+## Usage
+- For the ready to use executable file, its in `cmd` folder
+- The `main` function also already in `cmd` folder and showing how to use this package
+
+```Go
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/adhatama/cashchange"
+)
+
+func main() {
+	input := 0
+	fmt.Print("Input price: ")
+	_, err := fmt.Scanf("%d", &input)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	currencyBills := cashchange.GetCurrencyBills("IDR")
+	fmt.Printf("Available currency bills: %v\n", currencyBills)
+
+	paymentChances := cashchange.GetPaymentChances(input)
+
+	fmt.Println("=== Payment Chances ===")
+	for _, val := range paymentChances {
+		fmt.Printf("%d => %v\n", val.Value, val.Detail)
+	}
+
+	cashChanges := cashchange.Get(input)
+
+	fmt.Println("=== Cash Change Possibilites ===")
+	for _, val := range cashChanges {
+		fmt.Printf("%d => %v\n", val.Value, val.Detail)
+	}
+}
+```
+
 ## Case study
 - You are pizza delivery man
     - The customer buy a pizza that cost IDR 140.000
