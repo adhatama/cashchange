@@ -1,5 +1,8 @@
 package cashchange
 
+// CurrentCurrency config
+var CurrentCurrency = "IDR"
+
 // PaymentChance is to define structure data of payment chance possibilities
 type PaymentChance struct {
 	Value  int
@@ -15,7 +18,11 @@ type CashChange struct {
 // Get is the main function of this package.
 // Use this method to get the possibilities of cash change.
 func Get(inputPrice int) []CashChange {
-	moneyBills := getIdr()
+	if inputPrice <= 0 {
+		return []CashChange{}
+	}
+
+	moneyBills := GetCurrencyBills(CurrentCurrency)
 
 	paymentChances := calculatePaymentChances(inputPrice, moneyBills)
 
@@ -25,12 +32,16 @@ func Get(inputPrice int) []CashChange {
 // GetPaymentChances is to find the customer payment possibilities with details
 // without the cash change possibilities
 func GetPaymentChances(inputPrice int) []PaymentChance {
-	moneyBills := getIdr()
+	if inputPrice <= 0 {
+		return []PaymentChance{}
+	}
+
+	moneyBills := GetCurrencyBills(CurrentCurrency)
 
 	return calculatePaymentChances(inputPrice, moneyBills)
 }
 
-// GetCurrencyBills is used to get slice of currency bills based on params
+// GetCurrencyBills is used to get slice of currency bills based on params.
 // Still only supports IDR
 func GetCurrencyBills(currency string) []int {
 	if currency == "" {
