@@ -76,3 +76,7 @@ func main() {
         - If 85.000 then give them change IDR 2.000
         - If 90.000 then give them change IDR 5.000 and 2.000
         - If 100.000 then give them change IDR 10.000, 5.000, and 2.000
+
+## TODO
+- Handle changes up to the lowest possible currency bills, ex: IDR 100, 200, 500
+- Handle unchange input, ex: 96345
