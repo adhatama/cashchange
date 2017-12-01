@@ -22,6 +22,8 @@ func Get(inputPrice int) []CashChange {
 		return []CashChange{}
 	}
 
+	rounding(&inputPrice)
+
 	moneyBills := GetCurrencyBills(CurrentCurrency)
 
 	paymentChances := calculatePaymentChances(inputPrice, moneyBills)
@@ -35,6 +37,8 @@ func GetPaymentChances(inputPrice int) []PaymentChance {
 	if inputPrice <= 0 {
 		return []PaymentChance{}
 	}
+
+	rounding(&inputPrice)
 
 	moneyBills := GetCurrencyBills(CurrentCurrency)
 
@@ -86,6 +90,15 @@ func reverse(s []int) []int {
 	}
 
 	return s
+}
+
+func rounding(val *int) {
+	divider := 100
+	mod := *val % divider
+
+	if mod != 0 {
+		*val = *val + divider - mod
+	}
 }
 
 func calculatePaymentChances(inputPrice int, moneyBills []int) (paymentChances []PaymentChance) {
