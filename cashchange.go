@@ -57,7 +57,7 @@ func GetCurrencyBills(currency string) []int {
 }
 
 func getIdr() (x []int) {
-	moneyBills := []int{500, 1000, 2000, 5000, 10000, 20000, 50000, 100000}
+	moneyBills := []int{100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000}
 
 	return reverse(moneyBills)
 }
@@ -122,7 +122,7 @@ func calculateCashChanges(inputPrice int, paymentChances []PaymentChance, moneyB
 	for _, pChance := range paymentChances {
 		remaining := pChance.Value - inputPrice
 
-		for i := 0; i < len(moneyBills)-1; {
+		for i := 0; i < len(moneyBills); {
 			if remaining == 0 {
 				break
 			}
