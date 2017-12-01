@@ -8,7 +8,7 @@ import (
 func TestCurrencyBills(t *testing.T) {
 	// Given
 	currency := "IDR"
-	testData1 := []int{100000, 50000, 20000, 10000, 5000, 2000, 1000, 500}
+	testData1 := []int{100000, 50000, 20000, 10000, 5000, 2000, 1000, 500, 200, 100}
 
 	// When
 	currencyBills1 := GetCurrencyBills(currency)
@@ -53,12 +53,26 @@ func TestCalculatePaymentChances(t *testing.T) {
 	input5 := -90000
 	testData5 := map[int][]int{}
 
+	input6 := 1
+	testData6 := map[int][]int{
+		100000: []int{100000},
+		50000:  []int{50000},
+		20000:  []int{20000},
+		10000:  []int{10000},
+		5000:   []int{5000},
+		2000:   []int{2000},
+		1000:   []int{1000},
+		500:    []int{500},
+		200:    []int{200},
+	}
+
 	// When
 	paymentChances1 := GetPaymentChances(input1)
 	paymentChances2 := GetPaymentChances(input2)
 	paymentChances3 := GetPaymentChances(input3)
 	paymentChances4 := GetPaymentChances(input4)
 	paymentChances5 := GetPaymentChances(input5)
+	paymentChances6 := GetPaymentChances(input6)
 
 	// Then
 	if !isValidPaymentChances(paymentChances1, testData1) {
@@ -75,6 +89,9 @@ func TestCalculatePaymentChances(t *testing.T) {
 	}
 	if !isValidPaymentChances(paymentChances5, testData5) {
 		t.Error("Expected: ", testData5, "Given: ", paymentChances5)
+	}
+	if !isValidPaymentChances(paymentChances6, testData6) {
+		t.Error("Expected: ", testData6, "Given: ", paymentChances6)
 	}
 }
 
@@ -108,12 +125,25 @@ func TestCalculateCashChanges(t *testing.T) {
 	input5 := -90000
 	testData5 := map[int][]int{}
 
+	input6 := 1
+	testData6 := map[int][]int{
+		100000: []int{50000, 20000, 20000, 5000, 2000, 2000, 500, 200, 200},
+		50000:  []int{20000, 20000, 5000, 2000, 2000, 500, 200, 200},
+		20000:  []int{10000, 5000, 2000, 2000, 500, 200, 200},
+		10000:  []int{5000, 2000, 2000, 500, 200, 200},
+		5000:   []int{2000, 2000, 500, 200, 200},
+		1000:   []int{500, 200, 200},
+		500:    []int{200, 200},
+		200:    []int{100},
+	}
+
 	// When
 	cashChanges1 := Get(input1)
 	cashChanges2 := Get(input2)
 	cashChanges3 := Get(input3)
 	cashChanges4 := Get(input4)
 	cashChanges5 := Get(input5)
+	cashChanges6 := Get(input6)
 
 	// Then
 	if !isValidCashChanges(cashChanges1, testData1) {
@@ -130,6 +160,9 @@ func TestCalculateCashChanges(t *testing.T) {
 	}
 	if !isValidCashChanges(cashChanges5, testData5) {
 		t.Error("Expected: ", testData5, "Given: ", cashChanges5)
+	}
+	if !isValidCashChanges(cashChanges6, testData6) {
+		t.Error("Expected: ", testData6, "Given: ", cashChanges6)
 	}
 }
 

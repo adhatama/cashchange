@@ -79,4 +79,4 @@ func main() {
 
 ## TODO
 - [x] Handle changes up to the lowest possible currency bills, ex: IDR 100, 200
-- [ ] Handle unchange input, ex: 96345
+- [x] Handle unchange input, ex: 96345
