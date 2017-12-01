@@ -105,7 +105,7 @@ func calculatePaymentChances(inputPrice int, moneyBills []int) (paymentChances [
 	paymentChances = []PaymentChance{}
 	tempPChance := PaymentChance{}
 
-	for i := 0; i < len(moneyBills)-1; {
+	for i := 0; i < len(moneyBills); {
 		sumDetail := sum(tempPChance.Detail)
 
 		if sumDetail == inputPrice {
