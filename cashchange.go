@@ -63,7 +63,9 @@ func GetCurrencyBills(currency string) []int {
 func getIdr() (x []int) {
 	moneyBills := []int{100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000}
 
-	return reverse(moneyBills)
+	reverse(&moneyBills)
+
+	return moneyBills
 }
 
 func isPaymentChancesFound(result int, paymentChances []PaymentChance) (found bool) {
@@ -84,12 +86,12 @@ func sum(val []int) (result int) {
 	return
 }
 
-func reverse(s []int) []int {
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
-		s[i], s[j] = s[j], s[i]
+func reverse(s *[]int) []int {
+	for i, j := 0, len(*s)-1; i < j; i, j = i+1, j-1 {
+		(*s)[i], (*s)[j] = (*s)[j], (*s)[i]
 	}
 
-	return s
+	return *s
 }
 
 func rounding(val *int) {
